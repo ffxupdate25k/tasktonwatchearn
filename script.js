@@ -17,7 +17,7 @@ watchBtn.onclick = function () {
     status.innerHTML = "Opening rewarded ad...";
 
     // MONETAG REWARDED AD
-    show_9795549().then(() => {
+    show_11702925().then(() => {
 
         status.innerHTML = "Verifying reward...";
 
