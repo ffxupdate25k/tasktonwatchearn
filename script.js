@@ -3,7 +3,7 @@ tg.ready();
 
 const user = tg.initDataUnsafe.user;
 
-const WEBHOOK = "PASTE_YOUR_TELEBOTCREATOR_WEBHOOK";
+const WEBHOOK = "https://api.telebotcreator.com/new-webhook?data=gAAAAABqlvE0FfN5qr9oW0SURDamc-_8dJMwfQ5u6nWmwVsSapIaTYoFHBzQcO5gFKxlRM-A_tzvjfB8rK4qXs5phpXRQtEDFCBweHnKumI-fsFXJ4BztX4xz7GOu1mlsWe3Iv8RhbtJbjIaPD8ANEaghzC5ZziStRISnOU1zeJCtp84vzbhZpFO_3R9tvyTF8w6GQE3_4gp";
 
 const watchBtn = document.getElementById("watchBtn");
 const timer = document.getElementById("timer");
