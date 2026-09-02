@@ -4,6 +4,7 @@ tg.expand();
 
 const user = tg.initDataUnsafe.user;
 
+// Webhook passed from TeleBot Creator
 const params = new URLSearchParams(window.location.search);
 const WEBHOOK = params.get("webhook");
 
@@ -33,9 +34,9 @@ watchBtn.onclick = function () {
 
         clearInterval(countdown);
 
-        icon.innerHTML = "✔️";
-        timer.innerHTML = "+0005";
-        status.innerHTML = "Reward credited successfully";
+        icon.innerHTML = "✅";
+        timer.innerHTML = "+20";
+        status.innerHTML = "Verifying reward...";
 
         fetch(WEBHOOK, {
           method: "POST",
@@ -43,13 +44,20 @@ watchBtn.onclick = function () {
             "Content-Type": "application/json"
           },
           body: JSON.stringify({
+            user_id: user.id,
             status: "success",
-            reward: 20,
-            telegram_id: user.id
+            reward: 20
           })
+        })
+        .then(r => r.json())
+        .then(() => {
+          status.innerHTML = "Reward credited successfully";
+          tg.HapticFeedback.notificationOccurred("success");
+        })
+        .catch(() => {
+          status.innerHTML = "Webhook failed";
         });
 
-        tg.HapticFeedback.notificationOccurred("success");
       }
 
     }, 1000);
