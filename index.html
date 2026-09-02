@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Watch Ad</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ton Task & Earn</title>
 
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css"/>
 
   <!-- Telegram Mini App -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -14,27 +14,33 @@
 
 <div class="card">
 
-  <div id="icon" class="icon">🎁</div>
+  <div class="logo">💎</div>
 
-  <h2>Watch Rewarded Ad</h2>
+  <h2>Ton Task & Earn</h2>
+  <p class="sub">Watch Rewarded Ad</p>
 
-  <p id="status">
-    Tap the button below to watch an ad
-  </p>
+  <div class="circle">
 
-  <h1 id="timer">15</h1>
+    <svg viewBox="0 0 190 190">
+      <circle class="bg" cx="95" cy="95" r="85"/>
+      <circle class="progress" cx="95" cy="95" r="85"/>
+    </svg>
 
-  <div class="bar">
-    <div id="progress"></div>
+    <div class="inside">
+      <div id="icon">🎁</div>
+      <div id="timer">15</div>
+      <div class="sec">SECONDS</div>
+    </div>
+
   </div>
 
-  <button id="watchBtn">
-    WATCH AD
-  </button>
+  <p id="status">Tap below to watch an ad</p>
+
+  <button id="watchBtn">▶ WATCH AD</button>
 
 </div>
 
-<!-- Monetag Rewarded SDK -->
+<!-- Monetag SDK -->
 <script src="//libtl.com/sdk.js"
         data-zone="11702925"
         data-sdk="show_11702925">
@@ -43,4 +49,4 @@
 <script src="script.js"></script>
 
 </body>
-  </html>
+</html>
