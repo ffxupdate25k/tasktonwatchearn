@@ -1,9 +1,10 @@
 const tg = window.Telegram.WebApp;
 tg.ready();
+tg.expand();
 
 const user = tg.initDataUnsafe.user;
 
-const WEBHOOK = "https://api.telebotcreator.com/new-webhook?data=gAAAAABqlvE0FfN5qr9oW0SURDamc-_8dJMwfQ5u6nWmwVsSapIaTYoFHBzQcO5gFKxlRM-A_tzvjfB8rK4qXs5phpXRQtEDFCBweHnKumI-fsFXJ4BztX4xz7GOu1mlsWe3Iv8RhbtJbjIaPD8ANEaghzC5ZziStRISnOU1zeJCtp84vzbhZpFO_3R9tvyTF8w6GQE3_4gp";
+const WEBHOOK = "https://api.telebotcreator.com/new-webhook?data=gAAAAABql23x3Wso70wuU01NrUrs7I3i_X2zsWLFuInPZUHrQbGIxBzRqKXOTGABsQ4dmaK89s38ZjXLgUD97OJP50DLBw8fVD-Bf9Gsn6JKxyP-O6RIb_-j5uJWewNZMd0Ce2bjo9sBf1DI8kNDcjrOBL63RS1624opJ6PJ5gHKWsWYMWVHifHKugOVc1jXQLp6oj5EWkhL";
 
 const watchBtn = document.getElementById("watchBtn");
 const timer = document.getElementById("timer");
@@ -11,54 +12,45 @@ const status = document.getElementById("status");
 const icon = document.getElementById("icon");
 const progress = document.getElementById("progress");
 
-watchBtn.onclick = function () {
+watchBtn.onclick = async () => {
+  watchBtn.disabled = true;
+  status.innerHTML = "Opening rewarded ad...";
 
-    watchBtn.disabled = true;
-    status.innerHTML = "Opening rewarded ad...";
+  try {
+    await show_11702925();
 
-    // MONETAG REWARDED AD
-    show_11702925().then(() => {
+    status.innerHTML = "Verifying reward...";
+    let sec = 20;
 
-        status.innerHTML = "Verifying reward...";
+    const cd = setInterval(async () => {
+      sec--;
+      timer.innerHTML = sec;
+      progress.style.width = ((20 - sec) / 20) * 100 + "%";
 
-        let sec = 20;
+      if (sec <= 0) {
+        clearInterval(cd);
 
-        const countdown = setInterval(() => {
+        icon.innerHTML = "✅";
+        timer.innerHTML = "+20";
+        status.innerHTML = "Reward credited successfully";
 
-            sec--;
+        await fetch(WEBHOOK, {
+          method: "POST",
+          headers: {"Content-Type":"application/json"},
+          body: JSON.stringify({
+            command: "verifyad",
+            chat_id: user.id,
+            reward: 20,
+            status: "success"
+          })
+        });
 
-            timer.innerHTML = sec;
-            progress.style.width = (sec / 20) * 100 + "%";
+        tg.HapticFeedback.notificationOccurred("success");
+      }
+    }, 1000);
 
-            if (sec <= 0) {
-
-                clearInterval(countdown);
-
-                icon.innerHTML = "✅";
-                timer.innerHTML = "+20";
-                status.innerHTML = "Reward credited successfully";
-
-                fetch(WEBHOOK, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        user_id: user.id,
-                        reward: 20,
-                        status: "completed"
-                    })
-                });
-
-            }
-
-        }, 1000);
-
-    }).catch(() => {
-
-        watchBtn.disabled = false;
-        status.innerHTML = "Ad not completed.";
-
-    });
-
+  } catch {
+    watchBtn.disabled = false;
+    status.innerHTML = "Ad not completed.";
+  }
 };
