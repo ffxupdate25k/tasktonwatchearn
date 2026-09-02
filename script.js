@@ -4,9 +4,13 @@ tg.expand();
 
 const user = tg.initDataUnsafe.user;
 
-// Webhook passed from TeleBot Creator
+// Get webhook from URL
 const params = new URLSearchParams(window.location.search);
 const WEBHOOK = params.get("webhook");
+
+// DEBUG
+alert("Webhook:\n" + WEBHOOK);
+console.log("Webhook:", WEBHOOK);
 
 const watchBtn = document.getElementById("watchBtn");
 const timer = document.getElementById("timer");
@@ -49,12 +53,13 @@ watchBtn.onclick = function () {
             reward: 20
           })
         })
-        .then(r => r.json())
-        .then(() => {
+        .then(res => res.text())
+        .then(data => {
+          console.log("Webhook Response:", data);
           status.innerHTML = "Reward credited successfully";
-          tg.HapticFeedback.notificationOccurred("success");
         })
-        .catch(() => {
+        .catch(err => {
+          console.log(err);
           status.innerHTML = "Webhook failed";
         });
 
