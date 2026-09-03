@@ -48,7 +48,7 @@ watchBtn.addEventListener("click", async () => {
 
         progress.style.strokeDashoffset = 0;
         icon.innerHTML = "✔️";
-        timer.innerHTML = "Completed 🟢";
+        timer.innerHTML = "Done";
         status.innerHTML = "Crediting reward...";
 
         try {
