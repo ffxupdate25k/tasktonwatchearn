@@ -19,8 +19,7 @@ const circumference = 2 * Math.PI * radius;
 progress.style.strokeDasharray = circumference;
 progress.style.strokeDashoffset = circumference;
 
-watchBtn.onclick = function () {
-
+watchBtn.addEventListener("click", async () => {
   if (!WEBHOOK) {
     status.innerHTML = "Webhook not found!";
     return;
@@ -29,13 +28,13 @@ watchBtn.onclick = function () {
   watchBtn.disabled = true;
   status.innerHTML = "Opening rewarded ad...";
 
-  show_11702925().then(() => {
+  try {
+    await show_11702925();
 
     status.innerHTML = "Watching ad...";
     let sec = 15;
 
-    const count = setInterval(() => {
-
+    const count = setInterval(async () => {
       timer.innerHTML = sec;
 
       const percent = (15 - sec) / 15;
@@ -45,63 +44,38 @@ watchBtn.onclick = function () {
       sec--;
 
       if (sec < 0) {
-
         clearInterval(count);
 
         progress.style.strokeDashoffset = 0;
-        icon.innerHTML = "✔️";
-        icon.classList.add("done");
+        icon.innerHTML = "✅";
         timer.innerHTML = "DONE";
-
         status.innerHTML = "Crediting reward...";
 
-        fetch(WEBHOOK, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            user_id: user.id,
-            status: "success"
-          })
-        })
-        .then(() => {
+        try {
+          await fetch(WEBHOOK, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              user_id: user.id,
+              status: "success"
+            })
+          });
+
           status.innerHTML = "Reward credited!";
           tg.HapticFeedback.notificationOccurred("success");
 
-          setTimeout(() => {
-            tg.close();
-          }, 500);
-        })
-        .catch(() => {
+          setTimeout(() => tg.close(), 500);
+        } catch {
           watchBtn.disabled = false;
-          status.innerHTML = "Failed to credit reward.";
-        });
-
+          status.innerHTML = "Webhook failed.";
+        }
       }
-
     }, 1000);
 
-  }).catch(() => {
-
+  } catch {
     watchBtn.disabled = false;
     status.innerHTML = "Ad not completed.";
-
-  });
-
-};        setTimeout(()=>{
-          tg.close();
-        },1200);
-
-      }
-
-    },1000);
-
-  }).catch(()=>{
-
-    watchBtn.disabled = false;
-    status.innerHTML = "Ad not completed.";
-
-  });
-
-};
+  }
+});
