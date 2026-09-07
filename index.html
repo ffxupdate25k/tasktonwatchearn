@@ -1,48 +1,51 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TON Views</title>
 
 <link rel="stylesheet" href="style.css">
+
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
 
-<div class="app">
+<div class="container">
 
 <div class="top">
-<div class="live">● Task in progress</div>
-<div class="session">SESSION LIVE</div>
+<span class="live">● Task in progress</span>
+<span class="session">SESSION LIVE</span>
 </div>
 
 <div id="taskCard" class="card">
 
-<p class="label">Total Reward</p>
-<h1>0.04 <span>TON</span></h1>
-<p class="small">0.01 TON per ad · 4 ads</p>
+<div class="gem">💎</div>
 
-<div class="bar">
-<div id="progress" class="fill"></div>
+<p class="label">Total reward</p>
+<h1>0.04 <span>TON</span></h1>
+<p class="sub">0.01 TON per ad • 4 ads</p>
+
+<div class="progressBar">
+<div id="progress" class="progress"></div>
 </div>
 
-<div class="head">
-<span>Ad Progress</span>
+<div class="row">
+<b>Ad progress</b>
 <span id="counter">0/4</span>
 </div>
 
 <div class="statusBox">
 <div class="dot"></div>
+
 <div>
 <b id="title">Ad 1 is ready</b>
 <p>Tap below to start</p>
 </div>
+
 </div>
 
-<button id="watchBtn">
-▶ Watch Ad 1 of 4
-</button>
+<button id="watchBtn">▶ Watch Ad 1 of 4</button>
 
 <div class="reward">+0.01 TON</div>
 
@@ -50,13 +53,13 @@
 
 <div id="successCard" class="card success">
 
-<div class="check">✓</div>
+<div class="tick">✓</div>
 
 <h2>Reward Confirmed</h2>
 
-<p>All 4 ads watched and verified</p>
+<p>All 4 ads watched and verified.</p>
 
-<div class="amount">+0.04 TON</div>
+<div class="big">+0.04 TON</div>
 
 <div class="tags">
 <span>Verified</span>
