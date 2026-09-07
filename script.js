@@ -4,48 +4,53 @@ tg.expand();
 
 const user = tg.initDataUnsafe.user;
 
-const params = new URLSearchParams(location.search);
-const WEBHOOK = decodeURIComponent(params.get("webhook")||"");
+const WEBHOOK = new URLSearchParams(location.search).get("webhook") || "";
 
-const TOTAL = 4;
-let ad = 1;
+const TOTAL_ADS = 4;
+let current = 1;
 
 const btn = document.getElementById("watchBtn");
 const title = document.getElementById("title");
 const counter = document.getElementById("counter");
 const progress = document.getElementById("progress");
 
-function refresh(){
-counter.innerHTML=`${ad-1}/${TOTAL}`;
-progress.style.width=((ad-1)/TOTAL)*100+"%";
-title.innerHTML=`Ad ${ad} is ready`;
-btn.innerHTML=`▶ Watch Ad ${ad} of ${TOTAL}`;
+function updateUI(){
+
+counter.innerHTML = `${current-1}/${TOTAL_ADS}`;
+progress.style.width = `${((current-1)/TOTAL_ADS)*100}%`;
+title.innerHTML = `Ad ${current} is ready`;
+btn.innerHTML = `▶ Watch Ad ${current} of ${TOTAL_ADS}`;
+
 }
 
-refresh();
+updateUI();
 
-btn.onclick=async()=>{
+btn.onclick = async ()=>{
 
-btn.disabled=true;
-title.innerHTML="Opening rewarded ad...";
+btn.disabled = true;
+title.innerHTML = "Opening rewarded ad...";
 
 try{
 
 await show_11702925();
 
-if(ad<TOTAL){
-ad++;
-refresh();
-btn.disabled=false;
+if(current < TOTAL_ADS){
+
+current++;
+updateUI();
+btn.disabled = false;
+
 return;
+
 }
 
-progress.style.width="100%";
+progress.style.width = "100%";
 
-document.getElementById("taskCard").style.display="none";
-document.getElementById("successCard").style.display="block";
+document.getElementById("taskCard").style.display = "none";
+document.getElementById("successCard").style.display = "block";
 
 if(WEBHOOK){
+
 await fetch(WEBHOOK,{
 method:"POST",
 headers:{
@@ -58,18 +63,23 @@ ads_completed:4,
 reward:0.04
 })
 });
+
 }
 
 tg.HapticFeedback.notificationOccurred("success");
 
-setTimeout(()=>tg.close(),1800);
+setTimeout(()=>{
+tg.close();
+},1500);
 
 }catch(e){
-btn.disabled=false;
-title.innerHTML=`Ad ${ad} not completed`;
+
+btn.disabled = false;
+title.innerHTML = `Ad ${current} not completed`;
+
 }
 
-};justify-content:space-between;
+};};justify-content:space-between;
 margin:18px 0 12px;
 color:#ccc;
 }
