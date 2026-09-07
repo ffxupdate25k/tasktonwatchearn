@@ -6,12 +6,12 @@ font-family:Arial,sans-serif;
 }
 
 body{
-background:#060606;
+background:#070707;
 color:#fff;
 }
 
-.app{
-max-width:420px;
+.container{
+max-width:430px;
 margin:auto;
 padding:18px;
 }
@@ -19,28 +19,36 @@ padding:18px;
 .top{
 display:flex;
 justify-content:space-between;
-margin-bottom:20px;
+align-items:center;
+margin-bottom:18px;
 }
 
 .live{
-color:#9EFF3B;
+color:#b8ff45;
 font-size:13px;
 }
 
 .session{
-background:#18200E;
+background:#1b2411;
+color:#cfff4d;
 padding:8px 14px;
 border-radius:20px;
-color:#C7FF59;
-font-size:12px;
+font-size:11px;
+font-weight:bold;
 }
 
 .card{
-background:linear-gradient(180deg,#141414,#0A0A0A);
-border:1px solid #28361A;
+background:linear-gradient(180deg,#161616,#0b0b0b);
+border:1px solid #2a351b;
 border-radius:24px;
 padding:22px;
-box-shadow:0 0 35px rgba(180,255,60,.08);
+box-shadow:0 0 30px rgba(180,255,70,.08);
+}
+
+.gem{
+font-size:55px;
+text-align:center;
+margin-bottom:8px;
 }
 
 .label{
@@ -50,8 +58,8 @@ color:#888;
 
 h1{
 text-align:center;
-font-size:48px;
-color:#D5FF53;
+font-size:46px;
+color:#d8ff59;
 margin:8px 0;
 }
 
@@ -59,55 +67,54 @@ h1 span{
 font-size:22px;
 }
 
-.small{
+.sub{
 text-align:center;
 color:#777;
 font-size:13px;
-margin-bottom:22px;
+margin-bottom:20px;
 }
 
-.bar{
+.progressBar{
 height:8px;
-background:#222;
-border-radius:99px;
+background:#232323;
+border-radius:30px;
 overflow:hidden;
 }
 
-.fill{
+.progress{
 width:0%;
 height:100%;
-background:#CFFF4D;
-transition:.35s;
+background:#cfff4d;
+transition:.3s;
 }
 
-.head{
+.row{
 display:flex;
 justify-content:space-between;
-margin:18px 0 12px;
-color:#ccc;
+margin:16px 0 12px;
 }
 
 .statusBox{
-background:#171717;
+background:#191919;
 border-radius:16px;
 padding:15px;
 display:flex;
-gap:12px;
 align-items:center;
+gap:12px;
 margin-bottom:18px;
 }
 
 .dot{
 width:14px;
 height:14px;
+background:#cfff4d;
 border-radius:50%;
-background:#CFFF4D;
-box-shadow:0 0 12px #CFFF4D;
+box-shadow:0 0 12px #cfff4d;
 }
 
 .statusBox p{
+font-size:12px;
 color:#888;
-font-size:13px;
 margin-top:4px;
 }
 
@@ -115,21 +122,21 @@ button{
 width:100%;
 padding:16px;
 border:none;
-border-radius:16px;
-background:#CFFF4D;
-font-size:17px;
-font-weight:bold;
+border-radius:15px;
+background:#cfff4d;
 color:#111;
+font-size:16px;
+font-weight:bold;
 }
 
 button:disabled{
-opacity:.7;
+opacity:.75;
 }
 
 .reward{
 text-align:right;
 margin-top:12px;
-color:#CFFF4D;
+color:#cfff4d;
 font-weight:bold;
 }
 
@@ -138,24 +145,25 @@ display:none;
 text-align:center;
 }
 
-.check{
-width:88px;
-height:88px;
-margin:0 auto 18px;
+.tick{
+width:90px;
+height:90px;
+margin:auto;
 border-radius:50%;
-background:#CFFF4D;
+background:#cfff4d;
 color:#111;
-display:flex;
-align-items:center;
-justify-content:center;
 font-size:48px;
 font-weight:bold;
+display:flex;
+justify-content:center;
+align-items:center;
+margin-bottom:16px;
 }
 
-.amount{
-font-size:40px;
+.big{
+font-size:38px;
 font-weight:bold;
-color:#D5FF53;
+color:#d8ff59;
 margin:18px 0;
 }
 
@@ -163,8 +171,8 @@ margin:18px 0;
 display:inline-block;
 margin:4px;
 padding:8px 14px;
-background:#18200E;
+background:#1b2411;
+color:#cfff4d;
 border-radius:20px;
-color:#BFFF43;
 font-size:12px;
   }
