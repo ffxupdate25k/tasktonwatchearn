@@ -4,67 +4,157 @@ tg.expand();
 
 const user = tg.initDataUnsafe.user;
 
-const params = new URLSearchParams(window.location.search);
-const WEBHOOK = decodeURIComponent(params.get("webhook") || "");
+const params = new URLSearchParams(location.search);
+const WEBHOOK = decodeURIComponent(params.get("webhook")||"");
 
-const watchBtn = document.getElementById("watchBtn");
-const timer = document.getElementById("timer");
-const status = document.getElementById("status");
-const icon = document.getElementById("icon");
-const progress = document.querySelector(".progress");
+const TOTAL = 4;
+let ad = 1;
 
-const radius = 85;
-const circumference = 2 * Math.PI * radius;
+const btn = document.getElementById("watchBtn");
+const title = document.getElementById("title");
+const counter = document.getElementById("counter");
+const progress = document.getElementById("progress");
 
-progress.style.strokeDasharray = circumference;
-progress.style.strokeDashoffset = circumference;
+function refresh(){
+counter.innerHTML=`${ad-1}/${TOTAL}`;
+progress.style.width=((ad-1)/TOTAL)*100+"%";
+title.innerHTML=`Ad ${ad} is ready`;
+btn.innerHTML=`▶ Watch Ad ${ad} of ${TOTAL}`;
+}
 
-watchBtn.addEventListener("click", async () => {
-  if (!WEBHOOK) {
-    status.innerHTML = "Webhook not found!";
-    return;
-  }
+refresh();
 
-  watchBtn.disabled = true;
-  status.innerHTML = "Opening rewarded ad...";
+btn.onclick=async()=>{
 
-  try {
-    await show_11702925();
+btn.disabled=true;
+title.innerHTML="Opening rewarded ad...";
 
-    status.innerHTML = "Watching ad...";
-    let sec = 15;
+try{
 
-    const count = setInterval(async () => {
-      timer.innerHTML = sec;
+await show_11702925();
 
-      const percent = (15 - sec) / 15;
-      progress.style.strokeDashoffset =
-        circumference - (percent * circumference);
+if(ad<TOTAL){
+ad++;
+refresh();
+btn.disabled=false;
+return;
+}
 
-      sec--;
+progress.style.width="100%";
 
-      if (sec < 0) {
-        clearInterval(count);
+document.getElementById("taskCard").style.display="none";
+document.getElementById("successCard").style.display="block";
 
-        progress.style.strokeDashoffset = 0;
-        icon.innerHTML = "✔️";
-        timer.innerHTML = "Done";
-        status.innerHTML = "Crediting reward...";
+if(WEBHOOK){
+await fetch(WEBHOOK,{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+user_id:user.id,
+status:"success",
+ads_completed:4,
+reward:0.04
+})
+});
+}
 
-        try {
-          await fetch(WEBHOOK, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-              user_id: user.id,
-              status: "success"
-            })
-          });
+tg.HapticFeedback.notificationOccurred("success");
 
-          status.innerHTML = "Reward credited!";
-          tg.HapticFeedback.notificationOccurred("success");
+setTimeout(()=>tg.close(),1800);
+
+}catch(e){
+btn.disabled=false;
+title.innerHTML=`Ad ${ad} not completed`;
+}
+
+};justify-content:space-between;
+margin:18px 0 12px;
+color:#ccc;
+}
+
+.statusBox{
+background:#171717;
+border-radius:16px;
+padding:15px;
+display:flex;
+gap:12px;
+align-items:center;
+margin-bottom:18px;
+}
+
+.dot{
+width:14px;
+height:14px;
+border-radius:50%;
+background:#CFFF4D;
+box-shadow:0 0 12px #CFFF4D;
+}
+
+.statusBox p{
+color:#888;
+font-size:13px;
+margin-top:4px;
+}
+
+button{
+width:100%;
+padding:16px;
+border:none;
+border-radius:16px;
+background:#CFFF4D;
+font-size:17px;
+font-weight:bold;
+color:#111;
+}
+
+button:disabled{
+opacity:.7;
+}
+
+.reward{
+text-align:right;
+margin-top:12px;
+color:#CFFF4D;
+font-weight:bold;
+}
+
+.success{
+display:none;
+text-align:center;
+}
+
+.check{
+width:88px;
+height:88px;
+margin:0 auto 18px;
+border-radius:50%;
+background:#CFFF4D;
+color:#111;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:48px;
+font-weight:bold;
+}
+
+.amount{
+font-size:40px;
+font-weight:bold;
+color:#D5FF53;
+margin:18px 0;
+}
+
+.tags span{
+display:inline-block;
+margin:4px;
+padding:8px 14px;
+background:#18200E;
+border-radius:20px;
+color:#BFFF43;
+font-size:12px;
+  }          tg.HapticFeedback.notificationOccurred("success");
 
           setTimeout(() => tg.close(), 500);
         } catch {
