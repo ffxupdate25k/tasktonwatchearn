@@ -1,52 +1,78 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Ton Task & Earn</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TON Views</title>
 
-  <link rel="stylesheet" href="style.css"/>
-
-  <!-- Telegram Mini App -->
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+<link rel="stylesheet" href="style.css">
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
 
-<div class="card">
+<div class="app">
 
-  <div class="logo">💎</div>
+<div class="top">
+<div class="live">● Task in progress</div>
+<div class="session">SESSION LIVE</div>
+</div>
 
-  <h2>Ton Task & Earn</h2>
-  <p class="sub">Watch Rewarded Ad</p>
+<div id="taskCard" class="card">
 
-  <div class="circle">
+<p class="label">Total Reward</p>
+<h1>0.04 <span>TON</span></h1>
+<p class="small">0.01 TON per ad · 4 ads</p>
 
-    <svg viewBox="0 0 190 190">
-      <circle class="bg" cx="95" cy="95" r="85"/>
-      <circle class="progress" cx="95" cy="95" r="85"/>
-    </svg>
+<div class="bar">
+<div id="progress" class="fill"></div>
+</div>
 
-    <div class="inside">
-      <div id="icon">🎁</div>
-      <div id="timer">15</div>
-      <div class="sec">SECONDS</div>
-    </div>
+<div class="head">
+<span>Ad Progress</span>
+<span id="counter">0/4</span>
+</div>
 
-  </div>
+<div class="statusBox">
+<div class="dot"></div>
+<div>
+<b id="title">Ad 1 is ready</b>
+<p>Tap below to start</p>
+</div>
+</div>
 
-  <p id="status">Tap below to watch an ad</p>
+<button id="watchBtn">
+▶ Watch Ad 1 of 4
+</button>
 
-  <button id="watchBtn">▶️ Watch Ad</button>
+<div class="reward">+0.01 TON</div>
 
 </div>
 
-<!-- Monetag SDK -->
+<div id="successCard" class="card success">
+
+<div class="check">✓</div>
+
+<h2>Reward Confirmed</h2>
+
+<p>All 4 ads watched and verified</p>
+
+<div class="amount">+0.04 TON</div>
+
+<div class="tags">
+<span>Verified</span>
+<span>Instant</span>
+<span>On-chain</span>
+</div>
+
+</div>
+
+</div>
+
 <script src="//libtl.com/sdk.js"
-        data-zone="11702925"
-        data-sdk="show_11702925">
-</script>
+data-zone="11702925"
+data-sdk="show_11702925"></script>
 
 <script src="script.js"></script>
 
 </body>
-</html>
+  </html>
