@@ -49,7 +49,7 @@ btn.addEventListener("click", () => {
           user_id: user.id,
           status: "success",
           ads_completed: 4,
-          reward: 0.04
+          reward: 0.008
         })
       });
     }
